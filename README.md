@@ -1,2 +1,2 @@
-# SealPupBot
+# SealPup
 A friendly discord bot
