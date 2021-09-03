@@ -1,9 +1,10 @@
 import discord
 import os
 from dotenv import load_dotenv
-from typing import Dict, List
 
 client = discord.Client()
+
+commands = ["join", ""]
 
 @client.event
 async def on_ready():
@@ -20,15 +21,11 @@ async def on_message(message):
     if len(message.content.split()) == 0:
         return
 
+    # Poker
     if message.content.startswith("!"):
-
-        command_str = parse_game_command()
-
-        # await message.channel.send("The Poker game is starting, type `!join` to enter the game.")
-
-def parse_game_command(commands):
-
-
+        first_command = message.content.split()[0]
+        check_command()
+        await message.channel.send("The Poker game is starting, type `!join` to enter the game." + first_command)
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))

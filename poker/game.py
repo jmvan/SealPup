@@ -1,15 +1,14 @@
 from enum import Enum
 
-class GameState(Enum):
-    GAME_NONE = 1
-    GAME_INIT = 2
-    ROTATE_BLIND = 3
-    BETTING = 4
-    DEALING_FLOP = 5
-    DEALING_TURN = 6
-    DEALING_RIVER = 7
-
+default = []
 
 class Game():
+    def __init__(self, small_blind, big_blind, buy_in, players): -> None:
+        self.small_blind = small_blind
+        self.big_blind = big_blind
+        self.buy_in = buy_in
+        self.player_count =
+
+    def
 
 
