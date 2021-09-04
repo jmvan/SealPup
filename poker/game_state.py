@@ -15,37 +15,43 @@ class State(Enum):
 
 class GameState():
     """
-    The State class determines the game state based off user commands in discord
+    The GameState class represents a finite state machine that determines the state of the poker game
     """
     def __init__(self):
         self.game = None
         self.game_state = State.NO_GAME
 
     def process_command(self, message: discord.Message, command: str) -> None:
-        if (command == "!poker"):
-            self.process_new_game()
-        elif (command == "!join"):
+        if command == "!poker":
+            self.process_new_game(message, command)
+        elif command == "!join":
             self.process_new_player()
-        elif (command == "!deal"):
+        elif command == "!deal":
             self.process_dealing()
-        elif (command == "!call"):
+        elif command == "!call":
             self.process_player_call()
-        elif (command == "!raise"):
+        elif command == "!raise":
             self.process_player_raise()
-        elif (command == "!fold"):
+        elif command == "!fold":
             self.process_player_fold()
-        elif (command == "!allin"):
+        elif command == "!allin":
             self.process_player_all_in()
-        elif (command == "!help"):
+        elif command == "!help":
             await message.channel.send("help command")
-        elif (command == "!exit"):
+        elif command == "!exit":
             game = None
             await message.channel.send("The game has ended, thanks for playing!")
 
-    def process_new_game(self):
-        game = Game()
+    def process_new_game(self, message: discord.Message, commands: str):
+        if self.game_state == State.NO_GAME:
+            self.game = Game(commands)
+            self.game_state = State.GAME_INIT
+        await message.channel.send("The Poker game is currently looking for players\n" +
+                                   "Type `!join` to join the game\n" +
+                                   "Type '!deal` to start the game")
 
-    def process_new_player(self):
+    def process_new_player(self, ):
+        self.game.add_player()
 
     def process_dealing(self):
 

@@ -1,9 +1,10 @@
 import discord
 import os
 from dotenv import load_dotenv
+from poker.game_state import GameState
 
 client = discord.Client()
-game = None
+game_state = GameState()
 
 
 @client.event
@@ -24,8 +25,10 @@ async def on_message(message):
     # Poker
     if message.content.startswith("!"):
         first_command = message.content.split()[0]
-        process_poker_command()
-        await message.channel.send("The Poker game is starting, type `!join` to enter the game." + first_command)
+        game_state.process_command(message=message, command=first_command)
+        await message.channel.send("The Poker game is looking for players\n" +
+                                   "Type `!join` to join the game\n" +
+                                   "Type '!deal` to start the game")
 
 
 load_dotenv()

@@ -1,7 +1,7 @@
 class Game():
     def __init__(self, options): -> None:
-        self.small_blind =
-        self.big_blind = options.big_blind
+        self.small_blind = 0.1
+        self.big_blind = 0.2
         self.buy_in = options.buy_in
         self.player_count = options.player_count
         self.players = []
