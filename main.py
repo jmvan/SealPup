@@ -1,42 +1,18 @@
 import discord
 import os
 from dotenv import load_dotenv
-from poker.game import Game
 
 client = discord.Client()
 game = None
 
-def process_poker_command(game: Game, command: str) -> None:
-    if (command == "!poker"):
-        game.
-    elif (command == "!join"):
-        game.add_player()
-
-    elif (command == "!start"):
-
-
-    elif (command == "!deal"):
-
-    elif (command == "!call"):
-
-    elif (command == "!raise"):
-
-    elif (command == "!fold"):
-
-    elif (command == "!allin"):
-
-
-    elif (command == "!help"):
-
-    elif (command == "!exit")
 
 @client.event
 async def on_ready():
     print("{0} reporting for duty!".format(client.user))
 
+
 @client.event
 async def on_message(message):
-
     #  Do not allow the bot to reply to itself
     if message.author.id == client.user.id:
         return
@@ -50,6 +26,7 @@ async def on_message(message):
         first_command = message.content.split()[0]
         process_poker_command()
         await message.channel.send("The Poker game is starting, type `!join` to enter the game." + first_command)
+
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))
