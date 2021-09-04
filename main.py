@@ -1,10 +1,34 @@
 import discord
 import os
 from dotenv import load_dotenv
+from poker.game import Game
 
 client = discord.Client()
+game = None
 
-commands = ["join", ""]
+def process_poker_command(game: Game, command: str) -> None:
+    if (command == "!poker"):
+        game.
+    elif (command == "!join"):
+        game.add_player()
+
+    elif (command == "!start"):
+
+
+    elif (command == "!deal"):
+
+    elif (command == "!call"):
+
+    elif (command == "!raise"):
+
+    elif (command == "!fold"):
+
+    elif (command == "!allin"):
+
+
+    elif (command == "!help"):
+
+    elif (command == "!exit")
 
 @client.event
 async def on_ready():
@@ -24,7 +48,7 @@ async def on_message(message):
     # Poker
     if message.content.startswith("!"):
         first_command = message.content.split()[0]
-        check_command()
+        process_poker_command()
         await message.channel.send("The Poker game is starting, type `!join` to enter the game." + first_command)
 
 load_dotenv()
