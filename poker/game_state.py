@@ -49,22 +49,34 @@ class GameState():
         if self.game_state == State.NO_GAME:
             self.game = Game(commands)
             self.game_state = State.WAIT_FOR_PLAYERS
-        await message.channel.send("The Poker game is currently looking for players\n" +
-                                   "Type `!join` to join the game\n" +
-                                   "Type '!deal` to start the game")
+            await message.channel.send("The poker game is currently looking for players\n" +
+                                       "Type `!join` to join the game\n" +
+                                       "Type '!deal` to start the game")
+        elif self.game_state == State.WAIT_FOR_PLAYERS:
+            await message.channel.send("The poker game is currently looking for players\n" +
+                                       "Type `!join` to join the game\n" +
+                                       "Type '!deal` to start the game")
+        else:
+            await message.channel.send("The Poker game has already started.")
 
     def process_new_player(self, message: discord.Message):
-        if self.game_state == State.WAIT_FOR_PLAYERS:
-            self.game.add_player(message.author)
-        elif self.game_state == State.NO_GAME:
-            await message.channel.send("The Poker game has not started yet\n" +
+        if self.game_state == State.NO_GAME:
+            await message.channel.send("The poker game has not started yet\n" +
                                        "Type `!poker` to start looking for players")
+        elif self.game_state == State.WAIT_FOR_PLAYERS:
+            self.game.add_player(message.author)
+            await message.channel.send('{} has joined the poker game.'.format(message.author.name))
         else:
             # add the player, but wait for next round
 
-    def process_dealing(self):
-        if self.game_state == State.WAIT_FOR_PLAYERS:
+    def process_dealing(self, message: discord.Message):
+        if self.game_state == State.NO_GAME:
+            await message.channel.send("The poker game has not started yet\n" +
+                                       "Type `!poker` to start looking for players")
+        elif self.game_state == State.WAIT_FOR_PLAYERS:
             self.game_state = State.DEALING
+
+    def process_
 
     def process_player_check(self):
 

@@ -9,7 +9,8 @@ class Game():
         self.small_blind = 0.1
         self.big_blind = 0.2
         self.players: List[Player] = []
-        self.betters = []
+        self.cur_betters = []
+        self.num_betters = 0
         self.round = 0
         self.pool = 0
         self.deck = None
