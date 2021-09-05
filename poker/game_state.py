@@ -5,12 +5,11 @@ from game import Game
 class State(Enum):
     NO_GAME = 1
     WAIT_FOR_PLAYERS = 2
-    ROTATE_BLIND = 3
+    PREFLOP = 3
+    DEALING = 3
     BETTING_FLOP = 4
-    DEALING_FLOP = 5
-    DEALING_TURN = 6
-    DEALING_RIVER = 7
-    WAITING_FOR_DEALING =
+    BETTING_TURN = 5
+    BETTING_RIVER = 6
 
 class GameState():
     """
@@ -27,6 +26,8 @@ class GameState():
             self.process_new_player()
         elif command == "!deal":
             self.process_dealing()
+        elif command == "!check":
+            self.process_player_check()
         elif command == "!call":
             self.process_player_call()
         elif command == "!raise":
@@ -39,6 +40,7 @@ class GameState():
             await message.channel.send("help command")
         elif command == "!exit":
             self.game = None
+            self.game_state = State.NO_GAME
             await message.channel.send("The game has ended, thanks for playing!")
         else:
             await message.channel.send("Command not recognized, please type `!help` to see the list of commands.")
@@ -46,27 +48,37 @@ class GameState():
     def process_new_game(self, message: discord.Message, commands: str):
         if self.game_state == State.NO_GAME:
             self.game = Game(commands)
-            self.game_state = State.WAITING_FOR_
+            self.game_state = State.WAIT_FOR_PLAYERS
         await message.channel.send("The Poker game is currently looking for players\n" +
                                    "Type `!join` to join the game\n" +
                                    "Type '!deal` to start the game")
 
     def process_new_player(self, message: discord.Message):
         if self.game_state == State.WAIT_FOR_PLAYERS:
-
-
+            self.game.add_player(message.author)
+        elif self.game_state == State.NO_GAME:
+            await message.channel.send("The Poker game has not started yet\n" +
+                                       "Type `!poker` to start looking for players")
         else:
-
-        self.game.add_player()
+            # add the player, but wait for next round
 
     def process_dealing(self):
+        if self.game_state == State.WAIT_FOR_PLAYERS:
+            self.game_state = State.DEALING
+
+    def process_player_check(self):
+
 
 
     def process_player_call(self):
+        if self.game_state == State.BETTING_FLOP:
+        elif self.game_state == State.BETTI
 
     def process_player_raise(self):
 
     def process_player_fold(self):
 
     def process_player_all_in(self):
+        # check if the player is still in
+
 

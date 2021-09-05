@@ -26,10 +26,6 @@ async def on_message(message):
     if message.content.startswith("!"):
         first_command = message.content.split()[0]
         game_state.process_command(message=message, command=first_command)
-        await message.channel.send("The Poker game is looking for players\n" +
-                                   "Type `!join` to join the game\n" +
-                                   "Type '!deal` to start the game")
-
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))

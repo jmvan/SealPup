@@ -1,4 +1,4 @@
-
+import random
 
 SUITS = ["S", "C", "D", "H"]
 
@@ -27,11 +27,14 @@ class Card:
 
 class Deck:
     def __init__(self) -> None:
-        cards = []
+        new_cards = []
         for value in VALUES:
             for suit in SUITS:
-                cards.append(Card(value, suit))
-        self.cards = cards
+                new_cards.append(Card(value, suit))
+        random.shuffle(new_cards)
+        self.cards = new_cards
 
     def draw(self) -> Card:
         return self.cards.pop()
+
+
