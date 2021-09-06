@@ -1,4 +1,5 @@
 import random
+from card import Card
 
 SUITS = ["S", "C", "D", "H"]
 
@@ -17,12 +18,6 @@ VALUES = {
     "K": 13,
     "A": 14
 }
-
-
-class Card:
-    def __init__(self, value, suit) -> None:
-        self.value = value
-        self.suit = suit
 
 
 class Deck:
