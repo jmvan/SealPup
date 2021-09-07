@@ -1,7 +1,7 @@
 import discord
 import os
 from dotenv import load_dotenv
-from poker.game_state import GameState
+from poker.poker import GameState
 
 client = discord.Client()
 game_state = GameState()
@@ -23,9 +23,8 @@ async def on_message(message):
         return
 
     # Poker
-    if message.content.startswith("!"):
-        first_command = message.content.split()[0]
-        game_state.process_command(message=message, command=first_command)
+    if message.content.startswith("?"):
+        game_state.process_command(message=message)
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))

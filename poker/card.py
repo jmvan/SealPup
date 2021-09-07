@@ -1,4 +1,7 @@
 class Card:
-    def __init__(self, value, suit) -> None:
-        self.value = value
+    """
+    A class representing a single playing card.
+    """
+    def __init__(self, rank, suit) -> None:
+        self.rank = rank
         self.suit = suit

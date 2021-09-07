@@ -21,6 +21,9 @@ VALUES = {
 
 
 class Deck:
+    """
+    A class representing a deck of 52 cards.
+    """
     def __init__(self) -> None:
         new_cards = []
         for value in VALUES:
