@@ -1,10 +1,10 @@
-import discord
 import os
+import discord
 from dotenv import load_dotenv
-from poker.poker import GameState
+from poker.poker import Poker
 
 client = discord.Client()
-game_state = GameState()
+poker = Poker()
 
 
 @client.event
@@ -24,7 +24,8 @@ async def on_message(message):
 
     # Poker
     if message.content.startswith("?"):
-        game_state.process_command(message=message)
+        poker.process_command(message=message)
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))
+

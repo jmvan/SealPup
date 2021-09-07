@@ -25,6 +25,9 @@ class Deck:
     A class representing a deck of 52 cards.
     """
     def __init__(self) -> None:
+        self.cards =
+
+    def reset_deck(self):
         new_cards = []
         for value in VALUES:
             for suit in SUITS:
