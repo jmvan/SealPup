@@ -13,15 +13,17 @@ class Poker:
         first_command = message.content.split()[0]
         if self.game is None:
             self.process_new_game(first_command=first_command, message=message)
-        elif self.game.game_state == GameState.WAIT_FOR_PLAYERS:
+        elif self.game.game_state == GameState.WAIT_FOR_PLAYERS_PHASE:
             self.process_new_players(first_command=first_command, message=message)
-        elif self.game.game_state == GameState.BETTING_PRE_FLOP:
-            self.process_betting_pre_flop(first_command=first_command, message=message)
+        elif self.game.game_state == GameState.BETTING_PHASE:
+            self.process_betting(first_command=first_command, message=message)
+        elif self.game.game_state == GameState.SHOWDOWN_PHASE:
+            self.process_showdown(first_command=first_command, message=message)
 
     def process_new_game(self, first_command: str, message: discord.Message) -> None:
         if first_command == "?poker":
             self.game = Game()
-            self.game.game_state = GameState.WAIT_FOR_PLAYERS
+            self.game.game_state = GameState.WAIT_FOR_PLAYERS_PHASE
             await message.channel.send("The poker game is currently looking for players\n" +
                                        "Type `?join` to join the game\n" +
                                        "Type '?deal` to start the game")
@@ -35,35 +37,48 @@ class Poker:
             self.game.add_player(message.author)
             await message.channel.send('{} has joined the poker game.'.format(message.author.name))
         elif first_command == "?deal":
-            self.game.game_state = GameState.BETTING_PRE_FLOP
+            self.game.game_state = GameState.BETTING_PHASE
             self.game.deal_hole_cards()
             # TODO: send message on who is currently big blind and small blind and whose turn it is
 
-    def process_betting_pre_flop(self, first_command: str, message: discord.Message) -> None:
-        if not self.game.check_current_player(message.author):
-
-            await message.channel.send("")
+    def process_betting(self, first_command: str, message: discord.Message) -> None:
+        current_player = self.game.get_current_player()
+        if current_player.user != message.author:
+            await message.channel.send('It is not {} turn to play'.format(message.author.name))
         elif first_command == "?check":
-            self.game.player_check()
+            self.process_player_check(message=message)
         elif first_command == "?call":
-            self.game.player_call()
+            self.process_player_call(message=message)
         elif first_command == "?raise":
-            self.game.player_raise()
+            self.process_player_raise(message=message)
         elif first_command == "?fold":
-            self.game.player_fold()
+            self.process_player_fold(message=message)
         elif first_command == "?allin":
-            self.game.player.
+            self.process_player_all_in(message=message)
         elif first_command == "?help":
         elif first_command == "?exit":
         else:
 
+    def process_showdown(self, first_command: str, message: discord.Message) -> None:
 
 
-    def process_player_check(self):
-    def process_player_call(self):
-    def process_player_raise(self):
-    def process_player_fold(self):
-    def process_player_all_in(self):
+
+
+    def process_player_check(self, message: discord.Message) -> None:
+        # check if the current player is able to make the check
+        # if so, then increment the pot and balance
+        # move the player to the end of the players queue
+        current_player = self.game.get_current_player()
+        if self.game.verify_check():
+            await
+        else:
+            # remove player from queue
+
+    def process_player_call(self, message: discord.Message) -> None:
+
+    def process_player_raise(self, message: discord.Message) -> None:
+    def process_player_fold(self, message: discord.Message) -> None:
+    def process_player_all_in(self, message: discord.Message) -> None:
 
 
 

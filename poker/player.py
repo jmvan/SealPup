@@ -4,3 +4,5 @@ class Player:
         self.balance = 0
         self.user = discord_user
 
+
+    def verify

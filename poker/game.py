@@ -6,13 +6,10 @@ from player import Player
 
 
 class GameState(Enum):
-    WAIT_FOR_PLAYERS = 2
-    DEALING = 3
-    BETTING_PRE_FLOP = 4
-    BETTING_FLOP = 5
-    BETTING_TURN = 6
-    BETTING_RIVER = 7
-    SHOWDOWN = 8
+    WAIT_FOR_PLAYERS_PHASE = 2
+    DEALING_PHASE = 3
+    BETTING_PHASE = 4
+    SHOWDOWN_PHASE = 8
 
 
 class Game:
@@ -40,10 +37,13 @@ class Game:
         for player in self.players:
             self.betters.append(player)
 
-    def check_current_player(self, user: discord.User):
-        current_player = self.betters.pop(0)
-        if user == current_player:
-            return True
-        return False
+    def get_current_player(self):
+        return self.betters[0]
+
+    def verify_check(self):
+
+    def verify_raise(self):
+
+    def verify_
 
 
