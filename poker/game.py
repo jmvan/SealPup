@@ -1,15 +1,17 @@
 import discord
 from enum import Enum
 
+from deck import Deck
+from card import Card
 from typing import List
 from player import Player
 
 
 class GameState(Enum):
-    WAIT_FOR_PLAYERS_PHASE = 2
-    DEALING_PHASE = 3
-    BETTING_PHASE = 4
-    SHOWDOWN_PHASE = 8
+    WAIT_FOR_PLAYERS_PHASE = 1
+    DEALING_PHASE = 2
+    BETTING_PHASE = 3
+    SHOWDOWN_PHASE = 4
 
 
 class Game:
@@ -19,11 +21,15 @@ class Game:
         self.players: List[Player] = []
         self.betters: List[Player] = []
         self.board: List[Card] = []
-        self.num_betters = 0
-        self.round = 0
         self.pool = 0
-        self.deck = None
-        self.game_state = GameState.NO_GAME
+        self.deck: Deck = Deck()
+        self.game_state: GameState = GameState.NO_GAME
+
+    def reset_round(self):
+        self.betters: List[Player] = []
+        self.pool = 0
+        self.board: List[Card] = []
+        self.deck: Deck = Deck()
 
     def add_player(self, user: discord.User):
         for player in self.players:
@@ -32,15 +38,27 @@ class Game:
         self.players.append(Player(user))
         return True
 
-    def deal_hole_cards(self):
+    def deal_cards(self):
 
-        for player in self.players:
-            self.betters.append(player)
+        # Deal cards for flop, river, turn
+        self.board.append(self.deck.draw())
+        self.board.append(self.deck.draw())
+        self.board.append(self.deck.draw())
+        self.board.append(self.deck.draw())
+        self.board.append(self.deck.draw())
 
-    def get_current_player(self):
+        # Deal two cards to each player
+        self.betters = self.players.copy()
+        for better in self.betters:
+            better.first_card = self.deck.draw()
+            better.second_card = self.deck.draw()
+
+    def get_current_better(self):
         return self.betters[0]
 
-    def verify_check(self):
+    def verify_check(self, user: discord.User):
+        if
+        
 
     def verify_raise(self):
 

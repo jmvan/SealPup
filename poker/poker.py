@@ -36,14 +36,17 @@ class Poker:
         elif first_command == "?join":
             self.game.add_player(message.author)
             await message.channel.send('{} has joined the poker game.'.format(message.author.name))
+
+            # TODO: limit players to 2 and 12
         elif first_command == "?deal":
             self.game.game_state = GameState.BETTING_PHASE
-            self.game.deal_hole_cards()
+
+            self.game.deal_cards()
             # TODO: send message on who is currently big blind and small blind and whose turn it is
 
     def process_betting(self, first_command: str, message: discord.Message) -> None:
-        current_player = self.game.get_current_player()
-        if current_player.user != message.author:
+        current_better = self.game.get_current_better()
+        if current_better.user != message.author:
             await message.channel.send('It is not {} turn to play'.format(message.author.name))
         elif first_command == "?check":
             self.process_player_check(message=message)
@@ -68,13 +71,16 @@ class Poker:
         # check if the current player is able to make the check
         # if so, then increment the pot and balance
         # move the player to the end of the players queue
-        current_player = self.game.get_current_player()
         if self.game.verify_check():
-            await
+
+
+            # move the player to the end of the players queue
         else:
             # remove player from queue
+        # check the queue if you're last
 
     def process_player_call(self, message: discord.Message) -> None:
+
 
     def process_player_raise(self, message: discord.Message) -> None:
     def process_player_fold(self, message: discord.Message) -> None:
