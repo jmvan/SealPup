@@ -24,7 +24,7 @@ async def on_message(message):
 
     # Poker
     if message.content.startswith("?"):
-        poker.process_command(message=message)
+        poker.process_game_state(message=message)
 
 load_dotenv()
 client.run(os.getenv('TOKEN'))

@@ -8,3 +8,4 @@ class Player:
         self.user = discord_user
         self.first_card = None
         self.second_card = None
+        self.bet_amount = 0
