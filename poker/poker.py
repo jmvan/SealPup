@@ -44,7 +44,7 @@ class Poker:
             await message.channel.send('{} has joined the poker game.'.format(message.author.name))
             # TODO: limit players to 2 and 12
         elif first_command == "?deal":
-            self.game.game_state = GameState.BETTING_PHASE
+            self.game.game_state = GameState.PRE_FLOP_PHASE
             self.game.deal_hole_cards()
             self.game.
             for better in self.game.betters:
@@ -53,8 +53,11 @@ class Poker:
                                                                  better.second_card))
 
     def process_pre_flop_phase(self, first_command: str, message: discord.Message) -> None:
-        current_better = self.game.get_current_better()
-        if current_better.user != message.author:
+
+
+
+
+        if self.game.get_current_better() != message.author:
             await message.channel.send('It is not {} turn to play'.format(message.author.name))
         elif first_command == "?check":
             self.process_player_check(message=message)
@@ -70,71 +73,7 @@ class Poker:
         elif first_command == "?exit":
         else:
             self.
-        # TOOD: process the round
-
-    def process_flop_phase(self, first_command: str, message: discord.Message) -> None:
-
-        # Show the flop for the board
-        if self.game.board
-
-        current_better = self.game.get_current_better()
-        if current_better.user != message.author:
-            await message.channel.send('It is not {} turn to play'.format(message.author.name))
-        elif first_command == "?check":
-            self.process_player_check(message=message)
-        elif first_command == "?call":
-            self.process_player_call(message=message)
-        elif first_command == "?raise":
-            self.process_player_raise(message=message)
-        elif first_command == "?fold":
-            self.process_player_fold(message=message)
-        elif first_command == "?allin":
-            self.process_player_all_in(message=message)
-        elif first_command == "?help":
-        elif first_command == "?exit":
-        else:
-            self.
-        # TOOD: process the round
-
-    def process_turn_phase(self, first_command: str, message: discord.Message) -> None:
-        current_better = self.game.get_current_better()
-        if current_better.user != message.author:
-            await message.channel.send('It is not {} turn to play'.format(message.author.name))
-        elif first_command == "?check":
-            self.process_player_check(message=message)
-        elif first_command == "?call":
-            self.process_player_call(message=message)
-        elif first_command == "?raise":
-            self.process_player_raise(message=message)
-        elif first_command == "?fold":
-            self.process_player_fold(message=message)
-        elif first_command == "?allin":
-            self.process_player_all_in(message=message)
-        elif first_command == "?help":
-        elif first_command == "?exit":
-        else:
-            self.
-        # TOOD: process the round
-
-    def process_river_phase(self, first_command: str, message: discord.Message) -> None:
-        current_better = self.game.get_current_better()
-        if current_better.user != message.author:
-            await message.channel.send('It is not {} turn to play'.format(message.author.name))
-        elif first_command == "?check":
-            self.process_player_check(message=message)
-        elif first_command == "?call":
-            self.process_player_call(message=message)
-        elif first_command == "?raise":
-            self.process_player_raise(message=message)
-        elif first_command == "?fold":
-            self.process_player_fold(message=message)
-        elif first_command == "?allin":
-            self.process_player_all_in(message=message)
-        elif first_command == "?help":
-        elif first_command == "?exit":
-        else:
-            self.
-        # TOOD: process the round
+        # TODO: process the round
 
 
 
